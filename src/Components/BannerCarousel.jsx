@@ -26,7 +26,7 @@ export function BannerCarousel({ images }) {
       h={{ base: "200px", sm: "300px", md: "400px", lg: "520px" }} // ✅ responsive height
       position="relative"
       overflow="hidden"
-      borderRadius={{ base: "md", md: "xl" }} // ✅ nice UI
+      // borderRadius={{ base: "md", md: "xl" }} // ✅ nice UI
     >
       {images.map((item, index) => (
         <Image

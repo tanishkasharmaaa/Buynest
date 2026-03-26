@@ -95,7 +95,7 @@ export function AuthModal({ isOpen, onClose }) {
 
             <Button
               w="100%"
-              bg="blue.600"
+              bg="blue"
               color="white"
               _hover={{ bg: "blue.700" }}
               onClick={handleSubmit}
