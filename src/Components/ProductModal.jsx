@@ -61,6 +61,7 @@ export function ProductModal({ selectedProduct, isOpen, onClose }) {
               src={selectedProduct?.thumbnail}
               alt={selectedProduct?.title}
               w="100%"
+              h="85%"
               borderRadius="md"
             />
 
