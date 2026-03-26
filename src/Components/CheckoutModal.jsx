@@ -26,9 +26,9 @@ export function CheckoutModal({ isOpen, onClose, total, clearCart }) {
       setStatus("success");
 
       setTimeout(() => {
-        clearCart();     // 🧹 empty cart
+        clearCart();     
         onClose();
-        navigate("/");   // 🏠 redirect home
+        navigate("/");   
       }, 1500);
     }, 2000);
   };
@@ -58,7 +58,7 @@ export function CheckoutModal({ isOpen, onClose, total, clearCart }) {
 
                 <Button
                   w="100%"
-                  bg="blue.600"
+                  bg="blue"
                   color="white"
                   _hover={{ bg: "blue.700" }}
                   onClick={handlePayment}
