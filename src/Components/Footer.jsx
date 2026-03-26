@@ -7,7 +7,9 @@ export function Footer() {
     <Box bg="gray.200" color="white" py={{ base: 10, md: 16 }} px={{ base: 4, md: 16 }}>
       {/* Logo */}
       <Box textAlign="center" mb={{ base: 6, md: 12 }}>
+        <Link to={'/'}>
         <Image src="/Buynest white.svg" alt="logo" h="40px" mx="auto" />
+        </Link>
       </Box>
 
       {/* About Section */}
