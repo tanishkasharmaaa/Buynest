@@ -38,7 +38,7 @@ export const CartContextProvider = ({ children }) => {
     }
 
     showToastHandler(
-      "Add to Cart",
+      "Added to Cart",
       `${product.title} added to cart 🛒`,
       "success"
     );
