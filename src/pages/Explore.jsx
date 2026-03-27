@@ -12,6 +12,7 @@ import { ProductsCard } from "../Components/ProductsCard";
 import { getProducts } from "../services/api";
 import { ProductModal } from "../Components/ProductModal";
 import { ProductCardSkeleton } from "../Components/ProductCardSkeleton";
+import { Footer } from "../Components/Footer";
 
 export function Explore() {
   const [query, setQuery] = useState("");
@@ -137,6 +138,7 @@ export function Explore() {
           isOpen={isOpen}
         />
       )}
+      <Footer/>
     </>
   );
 }

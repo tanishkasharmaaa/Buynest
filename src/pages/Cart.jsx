@@ -12,6 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { CartContext } from "../Context/CartContext";
 import { CheckoutModal } from "../Components/CheckoutModal";
+import { Footer } from "../Components/Footer";
 
 export function Cart() {
   const { cart, removeFromCart, addToCart, clearCart } =
@@ -175,6 +176,7 @@ export function Cart() {
         total={totalPrice}
         clearCart={clearCart}
       />
+      <Footer/>
     </>
   );
 }

@@ -13,6 +13,7 @@ import { ProductsCard } from "../Components/ProductsCard";
 import { Pagination } from "../Components/Pagination";
 import { ProductModal } from "../Components/ProductModal";
 import { ProductCardSkeleton } from "../Components/ProductCardSkeleton";
+import { Footer } from "../Components/Footer";
 
 export function Trending() {
   const { category: paramCategory } = useParams();
@@ -177,6 +178,7 @@ export function Trending() {
       {selectedProduct && (
         <ProductModal selectedProduct={selectedProduct} onClose={onClose} isOpen={isOpen} />
       )}
+      <Footer/>
     </>
   );
 }

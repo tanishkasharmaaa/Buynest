@@ -21,6 +21,7 @@ import {
 import { useDisclosure } from "@chakra-ui/react";
 import { ProductModal } from "../Components/ProductModal";
 import { ProductCardSkeleton } from "../Components/ProductCardSkeleton";
+import {Footer} from "../Components/Footer"
 
 export function Products() {
   const [data, setData] = useState([]);
@@ -140,6 +141,7 @@ export function Products() {
           </>
         )}
       </Box>
+      <Footer/>
     </>
   );
 }
