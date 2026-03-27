@@ -33,11 +33,11 @@ function ProductModal({ selectedProduct, isOpen, onClose }) {
 
     addToCart(selectedProduct);
 
-    showToastHandler(
-      "Added to Cart",
-      `${selectedProduct.title} added successfully`,
-      "success"
-    );
+    // showToastHandler(
+    //   "Added to Cart",
+    //   `${selectedProduct.title} added successfully`,
+    //   "success"
+    // );
   };
 
   return (

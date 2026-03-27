@@ -98,11 +98,11 @@ export function ProductsCard({product,handleCardClick }) {
 
     addToCart(product);
 
-    showToastHandler(
-      "Added to Cart",
-      `${product.title} added successfully`,
-      "success"
-    );
+    // showToastHandler(
+    //   "Added to Cart",
+    //   `${product.title} added successfully`,
+    //   "success"
+    // );
   }}
         >
           Add to Cart

@@ -28,6 +28,7 @@ export const CartContextProvider = ({ children }) => {
     );
 
     if (alreadyExists) {
+      console.log("------------")
       showToastHandler(
         "Already Added",
         `${product.title} is already in cart`,
@@ -37,7 +38,7 @@ export const CartContextProvider = ({ children }) => {
     }
 
     showToastHandler(
-      "Success",
+      "Add to Cart",
       `${product.title} added to cart 🛒`,
       "success"
     );
@@ -46,7 +47,7 @@ export const CartContextProvider = ({ children }) => {
   });
 };
 
-  // Remove from Cart
+
   const removeFromCart = (id) => {
     setCart((prev) => prev.filter((ele) => ele.id !== id));
 
@@ -57,7 +58,7 @@ export const CartContextProvider = ({ children }) => {
     localStorage.removeItem("cartItems")
   }
 
-  // Persist cart
+
   useEffect(() => {
     localStorage.setItem("cartItems", JSON.stringify(cart));
   }, [cart]);

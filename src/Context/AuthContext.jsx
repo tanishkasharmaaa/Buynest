@@ -15,7 +15,7 @@ export const AuthContextProvider = ({ children }) => {
     return stored ? JSON.parse(stored) : false;
   });
 
-  // ✅ Toast State (Enhanced)
+
   const [toast, setToast] = useState({
     show: false,
     title: "",
@@ -23,19 +23,19 @@ export const AuthContextProvider = ({ children }) => {
     type: "info",
   });
 
-  // Save user
+
   useEffect(() => {
     if (user) {
       localStorage.setItem("userData", JSON.stringify(user));
     }
   }, [user]);
 
-  // Save login state
+ 
   useEffect(() => {
     localStorage.setItem("login", JSON.stringify(isLoggedIn));
   }, [isLoggedIn]);
 
-  // Helper to trigger toast
+ 
   const showToastHandler = (title, message, type = "info") => {
     setToast({
       show: true,
@@ -45,7 +45,7 @@ export const AuthContextProvider = ({ children }) => {
     });
   };
 
-  // Register
+
   const createUser = (name, email, password) => {
     const newUser = { name, email, password };
     setUser(newUser);
@@ -57,7 +57,7 @@ export const AuthContextProvider = ({ children }) => {
     );
   };
 
-  // Login
+
   const login = (email, password) => {
     if (!user) {
       showToastHandler("Error", "No user found ❌", "error");
