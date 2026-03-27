@@ -1,18 +1,137 @@
-# React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# 🛍️ Buynest – E-commerce Frontend
 
-Currently, two official plugins are available:
+Buynest is a modern e-commerce frontend application built to demonstrate strong **UI/UX design, frontend development, and performance optimization skills**. The project includes responsive layouts, product listing, cart functionality, and optimized user experience.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## 🔗 Live Demo
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+👉 [https://buynest-rho.vercel.app/](https://buynest-rho.vercel.app/)
 
-Note: This will impact Vite dev & build performances.
+## 🎥 Project Demo
 
-## Expanding the ESLint configuration
+👉 [https://drive.google.com/file/d/1KbSVUyqh40zRs2bdnnGQmhDJ7bH76Ok5/view?usp=sharing](https://drive.google.com/file/d/1KbSVUyqh40zRs2bdnnGQmhDJ7bH76Ok5/view?usp=sharing)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🎨 Figma Design
+
+👉 [https://www.figma.com/design/7QoIdgCB9UvqwjO2Jmf4ez/Buynest?node-id=0-1&t=lXR9gBanfK43zxrL-1](https://www.figma.com/design/7QoIdgCB9UvqwjO2Jmf4ez/Buynest?node-id=0-1&t=lXR9gBanfK43zxrL-1)
+
+---
+
+## 🚀 Tech Stack
+
+* **React.js**
+* **Chakra UI**
+* **JavaScript (ES6+)**
+* **CSS-in-JS**
+* **LocalStorage**
+
+---
+
+## ✨ Features
+
+### 🧑‍💻 Authentication
+
+* Simple Login functionality
+* User data handled using LocalStorage
+
+### 🛒 Cart Management
+
+* Add to cart
+* Remove from cart
+* Persistent cart using LocalStorage
+
+### 📦 Product Listing
+
+* Dynamic product display
+* Clean product card UI
+* Pagination for better performance
+
+### ⚡ Performance Optimization
+
+* Lazy Loading for components
+* useMemo for memoization
+* useCallback for optimized rendering
+* Debouncing for efficient search/filter
+
+### 📱 Responsive Design
+
+* Mobile-friendly UI
+* Adaptive layouts using Chakra UI
+
+---
+
+## 🎨 Design (Figma)
+
+* Designed key screens:
+
+  * Cover Page
+  * Product Page
+  * Checkout Page
+* Focus on:
+
+  * Layout & spacing
+  * Typography consistency
+  * Component-based structure
+* Custom **Buynest logo** created in Figma and used as SVG in the project
+
+---
+
+## 🧠 UI/UX Considerations
+
+* Clear navigation flow (Home → Products → Cart)
+* Consistent design system (colors, spacing, typography)
+* User-friendly interactions
+* Clean and minimal interface
+
+---
+
+## 🔌 API & Data Handling
+
+* Product data handling with state management
+* Pagination and debounce for efficient data flow
+* Error handling and loading states
+
+---
+
+## 📂 Project Structure
+
+```
+src/
+│── components/
+│── pages/
+│── context/
+│── routes/
+│── assets/
+│── App.js
+│── main.jsx
+```
+
+---
+
+## 🛠️ Installation & Setup
+
+```bash
+# Clone the repository
+git clone https://github.com/tanishkasharmaaa/Buynest
+
+# Navigate to project folder
+cd buynest
+
+# Install dependencies
+npm install
+
+# Run the app
+npm run dev
+```
+
+---
+
+## 📌 Key Learnings
+
+* Converting Figma designs into responsive UI
+* Performance optimization in React
+* Component-based architecture
+* Managing state and user data efficiently
+
