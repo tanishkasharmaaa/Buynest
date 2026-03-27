@@ -8,7 +8,7 @@ export const theme = extendTheme({
       200: "#A5B4FC",
       300: "#818CF8",
       400: "#6366F1",
-      500: "#1E3A8A", // main dark blue
+      500: "#1E3A8A", 
       600: "#162D6B",
       700: "#1E40AF",
     },

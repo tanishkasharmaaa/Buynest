@@ -19,7 +19,7 @@ function RibbonBanner({ text, boxStyle, textStyle }) {
         animation="scrollTicker 20s linear infinite"
         minW="100%"
       >
-        {/* Repeat text twice for seamless scroll */}
+        
         <Text
           as="span"
           fontSize={{ base: "1.2rem", md: "2rem", lg: "4rem" }}

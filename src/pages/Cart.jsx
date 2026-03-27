@@ -114,7 +114,7 @@ function Cart() {
               </VStack>
             </Box>
 
-            {/* 💳 RIGHT */}
+           
             <Box
               flex="1"
               w="100%"

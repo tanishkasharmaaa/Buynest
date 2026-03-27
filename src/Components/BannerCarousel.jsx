@@ -22,11 +22,10 @@ function BannerCarousel({ images }) {
 
   return (
     <Box
-      w="100%"                     // ✅ fixed (no horizontal scroll issue)
-      h={{ base: "200px", sm: "300px", md: "400px", lg: "520px" }} // ✅ responsive height
+      w="100%"                 
+      h={{ base: "200px", sm: "300px", md: "400px", lg: "520px" }} 
       position="relative"
       overflow="hidden"
-      // borderRadius={{ base: "md", md: "xl" }} // ✅ nice UI
     >
       {images.map((item, index) => (
         <Image

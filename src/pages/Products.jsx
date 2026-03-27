@@ -134,7 +134,7 @@ const handleCardClick = useCallback((product) => {
               ))}
             </Box>
 
-            {/* Pagination */}
+           
             <Pagination
               currPage={currPage}
               totalPages={totalPages}

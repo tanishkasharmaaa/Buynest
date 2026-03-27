@@ -26,7 +26,7 @@ function Home() {
      const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedProduct, setSelectedProduct] = useState(null);
 
-  // This will be passed to ProductsCarousel
+ 
   const handleCardClick = (product) => {
     setSelectedProduct(product);
     onOpen();

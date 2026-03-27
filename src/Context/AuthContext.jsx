@@ -77,7 +77,7 @@ export const AuthContextProvider = ({ children }) => {
     }
   };
 
-  // Logout
+ 
  const logout = () => {
   setIsLoggedIn(false);
 
@@ -98,7 +98,6 @@ export const AuthContextProvider = ({ children }) => {
     >
       {children}
 
-      {/* ✅ Enhanced Toast */}
       <Toast
         title={toast.title}
         message={toast.message}

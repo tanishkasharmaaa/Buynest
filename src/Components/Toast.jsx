@@ -5,7 +5,7 @@ export function Toast({
   message = "",
   show,
   onClose,
-  type = "info", // success | error | info
+  type = "info", 
 }) {
   const [visible, setVisible] = useState(false);
 
@@ -23,7 +23,7 @@ export function Toast({
     }
   }, [show, onClose]);
 
-  // Theme colors
+
   const theme = {
     success: {
       border: "#38A169",
@@ -58,7 +58,7 @@ export function Toast({
     fontFamily: "sans-serif",
     zIndex: 9999,
 
-    // 🔥🔥 THIS FIXES EVERYTHING
+  
     pointerEvents: visible ? "auto" : "none",
 
     // Animation
@@ -69,7 +69,7 @@ export function Toast({
     transition: "all 0.35s ease",
   }}
 >
-      {/* Header */}
+    
       <div
         style={{
           display: "flex",
@@ -79,7 +79,7 @@ export function Toast({
       >
         <strong style={{ fontSize: "14px" }}>{title}</strong>
 
-        {/* Close Button */}
+       
         <span
           onClick={() => {
             setVisible(false);
@@ -95,12 +95,12 @@ export function Toast({
         </span>
       </div>
 
-      {/* Message */}
+     
       <div style={{ marginTop: "6px", fontSize: "13px", color: "#444" }}>
         {message}
       </div>
 
-      {/* Progress Bar */}
+      
       <div
         style={{
           marginTop: "10px",

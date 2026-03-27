@@ -32,7 +32,6 @@ function Trending() {
 
   const ITEM_PER_PAGE = 20;
 
-  // Fetch products
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -41,11 +40,11 @@ function Trending() {
         const res = await getProducts(url);
         setData(res.resData.products);
 
-        // ✅ Extract categories after data fetch
+       
         const fetchedCategories = ["all", ...new Set(res.resData.products.map((item) => item.category))];
         setCategories(fetchedCategories);
 
-        // ✅ Set tab index based on URL param
+       
         if (paramCategory && fetchedCategories.includes(paramCategory)) {
           setCategory(paramCategory);
           setTabIndex(fetchedCategories.indexOf(paramCategory));
@@ -90,7 +89,7 @@ const paginatedData = useMemo(() => {
 
   return (
     <>
-      {/* CATEGORY TABS */}
+      
       <Box bg="white" position="sticky" top="70px" zIndex="100" boxShadow="sm" p="3">
         <Tabs
           variant="unstyled"
@@ -158,12 +157,12 @@ const paginatedData = useMemo(() => {
             display="grid"
             gap="25px"
             gridTemplateColumns={{
-              base: "repeat(auto-fit, minmax(200px, 1fr))", // mobile
-              sm: "repeat(auto-fit, minmax(220px, 1fr))", // small screens
+              base: "repeat(auto-fit, minmax(200px, 1fr))", 
+              sm: "repeat(auto-fit, minmax(220px, 1fr))", 
               md:
                 data?.length <= 3
                   ? "repeat(5, 1fr)"
-                  : "repeat(auto-fit, minmax(250px, 1fr))", // tablets & larger
+                  : "repeat(auto-fit, minmax(250px, 1fr))", 
             }}
           >
             {paginatedData.map((item) => (
