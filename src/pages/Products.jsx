@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
+import { lazy, Suspense } from "react";
 import { getProducts } from "../services/api";
-import { Navbar } from "../Components/Navbar";
 import { ProductsCard } from "../Components/ProductsCard";
 import { Box, Spinner, Text } from "@chakra-ui/react";
 import { Pagination } from "../Components/Pagination";
@@ -19,11 +19,12 @@ import {
   Badge,
 } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/react";
-import { ProductModal } from "../Components/ProductModal";
 import { ProductCardSkeleton } from "../Components/ProductCardSkeleton";
-import {Footer} from "../Components/Footer"
 
-export function Products() {
+const ProductModal = lazy(() => import("../Components/ProductModal"));
+const Footer = lazy(() => import("../Components/Footer"));
+
+function Products() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -56,22 +57,26 @@ export function Products() {
     handleData();
   }, [currPage]);
 
-  const handleCardClick = (product) => {
-    setSelectedProduct(product);
-    onOpen();
-  };
+const handleCardClick = useCallback((product) => {
+  setSelectedProduct(product);
+  onOpen();
+}, [onOpen]);
 
-  let sortedData = [...data];
+  const sortedData = useMemo(() => {
+  let temp = [...data];
 
   if (sortBy === "price-asc") {
-    sortedData.sort((a, b) => a.price - b.price);
+    temp.sort((a, b) => a.price - b.price);
   } else if (sortBy === "price-desc") {
-    sortedData.sort((a, b) => b.price - a.price);
+    temp.sort((a, b) => b.price - a.price);
   } else if (sortBy === "rating-desc") {
-    sortedData.sort((a, b) => b.rating - a.rating);
+    temp.sort((a, b) => b.rating - a.rating);
   } else if (sortBy === "rating-asc") {
-    sortedData.sort((a, b) => a.rating - b.rating);
+    temp.sort((a, b) => a.rating - b.rating);
   }
+
+  return temp;
+}, [data, sortBy]);
 
   const resetFilters = () => {
     setSortBy("");
@@ -135,13 +140,25 @@ export function Products() {
               totalPages={totalPages}
               setCurrPage={setCurrPage}
             />
-            {selectedProduct && (
-              <ProductModal selectedProduct={selectedProduct} onClose={onClose} isOpen={isOpen}/>
-            )}
+            <Suspense fallback={null}>
+  {selectedProduct && (
+    <ProductModal
+      selectedProduct={selectedProduct}
+      onClose={onClose}
+      isOpen={isOpen}
+    />
+  )}
+</Suspense>
+
           </>
         )}
       </Box>
-      <Footer/>
+      <br />
+      <Suspense fallback={null}>
+  <Footer />
+</Suspense>
     </>
   );
 }
+
+export default Products

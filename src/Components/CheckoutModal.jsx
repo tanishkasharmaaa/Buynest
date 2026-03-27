@@ -13,7 +13,7 @@ import {
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export function CheckoutModal({ isOpen, onClose, total, clearCart }) {
+function CheckoutModal({ isOpen, onClose, total, clearCart }) {
   const [status, setStatus] = useState("idle"); 
  
 
@@ -89,3 +89,5 @@ export function CheckoutModal({ isOpen, onClose, total, clearCart }) {
     </Modal>
   );
 }
+
+export default CheckoutModal

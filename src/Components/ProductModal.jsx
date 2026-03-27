@@ -17,7 +17,7 @@ import { useContext } from "react";
 import { CartContext } from "../Context/CartContext";
 import { AuthContext } from "../Context/AuthContext";
 
-export function ProductModal({ selectedProduct, isOpen, onClose }) {
+function ProductModal({ selectedProduct, isOpen, onClose }) {
   const { addToCart, showToastHandler } = useContext(CartContext);
   const { isLoggedIn } = useContext(AuthContext);
 
@@ -129,3 +129,5 @@ export function ProductModal({ selectedProduct, isOpen, onClose }) {
     </Modal>
   );
 }
+
+export default ProductModal

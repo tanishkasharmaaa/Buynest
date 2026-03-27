@@ -1,6 +1,6 @@
 import { Box, Text } from "@chakra-ui/react";
 
-export function RibbonBanner({ text, boxStyle, textStyle }) {
+function RibbonBanner({ text, boxStyle, textStyle }) {
   return (
     <Box
       position="relative"
@@ -56,3 +56,5 @@ export function RibbonBanner({ text, boxStyle, textStyle }) {
     </Box>
   );
 }
+
+export default RibbonBanner

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Box, Spinner, Text, Button } from "@chakra-ui/react";
 
-export function ProductsCarousel({ category = "Kitchen-accessories", handleCardClick }) {
+function ProductsCarousel({ category = "Kitchen-accessories", handleCardClick }) {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -103,3 +103,5 @@ export function ProductsCarousel({ category = "Kitchen-accessories", handleCardC
     </Box>
   );
 }
+
+export default ProductsCarousel

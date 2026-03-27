@@ -1,11 +1,12 @@
-import { BannerCarousel } from "../Components/BannerCarousel";
-import { RibbonBanner } from "../Components/RibbonBanner";
-import { ProductsCarousel } from "../Components/ProductsCarousel";
-import { ProductModal } from "../Components/ProductModal";
+import { lazy, Suspense } from "react";
 import { useDisclosure } from "@chakra-ui/react";
 import { useState } from "react";
-import { Box } from "@chakra-ui/react";
-import { Footer } from "../Components/Footer";
+
+const BannerCarousel = lazy(() => import("../Components/BannerCarousel"));
+const RibbonBanner = lazy(() => import("../Components/RibbonBanner"));
+const ProductsCarousel = lazy(() => import("../Components/ProductsCarousel"));
+const ProductModal = lazy(() => import("../Components/ProductModal"));
+const Footer = lazy(() => import("../Components/Footer"));
 
 const images = [
   { img: "/img1.jpg", link: "/trending/furniture" },
@@ -21,7 +22,7 @@ const images1 = [
   { img: "/img1.jpg", link: "/trending/furniture" },
 ];
 
-export function Home() {
+function Home() {
      const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedProduct, setSelectedProduct] = useState(null);
 
@@ -33,30 +34,51 @@ export function Home() {
 
   return (
     <>
-      <BannerCarousel images={images} />
-      <RibbonBanner
+      <Suspense fallback={null}>
+  <BannerCarousel images={images} />
+</Suspense>
+
+<Suspense fallback={null}>
+  <RibbonBanner
   text={"OUR BEST SELLING KITCHEN ACCESSORIES"}
   boxStyle={{
     backgroundColor: "blue",
   }}
 />
 <ProductsCarousel category={"kitchen-accessories"} handleCardClick={handleCardClick}/>
-<BannerCarousel images={images1} />
-      <RibbonBanner
+</Suspense>
+      
+
+<Suspense fallback={null}>
+  <BannerCarousel images={images1} />
+</Suspense>
+
+<Suspense fallback={null}>
+   <RibbonBanner
   text={"OUR BEST QUALITY MOBILE ACCESSORIES"}
   boxStyle={{
     backgroundColor: "blue",
   }}
 />
 <ProductsCarousel category={"mobile-accessories"} handleCardClick={handleCardClick}/>
-<Footer/>
-{selectedProduct && (
-        <ProductModal
-          selectedProduct={selectedProduct}
-          isOpen={isOpen}
-          onClose={onClose}
-        />
-      )}
+</Suspense>
+
+
+<Suspense fallback={null}>
+  {selectedProduct && (
+    <ProductModal
+      selectedProduct={selectedProduct}
+      isOpen={isOpen}
+      onClose={onClose}
+    />
+  )}
+</Suspense>
+
+<Suspense>
+  <Footer/>
+</Suspense>
     </>
   );
 }
+
+export default Home

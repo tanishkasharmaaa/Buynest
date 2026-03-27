@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"; 
+import { useEffect, useState, useMemo } from "react"; 
 import { useParams } from "react-router-dom";
 import {
   Box,
@@ -8,14 +8,16 @@ import {
   Tab,
   useDisclosure
 } from "@chakra-ui/react";
+import { lazy, Suspense } from "react";
 import { getProducts } from "../services/api";
 import { ProductsCard } from "../Components/ProductsCard";
 import { Pagination } from "../Components/Pagination";
-import { ProductModal } from "../Components/ProductModal";
 import { ProductCardSkeleton } from "../Components/ProductCardSkeleton";
-import { Footer } from "../Components/Footer";
 
-export function Trending() {
+const ProductModal = lazy(() => import("../Components/ProductModal"));
+const Footer = lazy(()=>import("../Components/Footer"))
+
+function Trending() {
   const { category: paramCategory } = useParams();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -25,8 +27,8 @@ export function Trending() {
 
   const [category, setCategory] = useState("all");
   const [currPage, setCurrPage] = useState(0);
-  const [tabIndex, setTabIndex] = useState(0); // fully controlled tab index
-  const [categories, setCategories] = useState([]); // store categories after fetch
+  const [tabIndex, setTabIndex] = useState(0); 
+  const [categories, setCategories] = useState([]); 
 
   const ITEM_PER_PAGE = 20;
 
@@ -65,25 +67,26 @@ export function Trending() {
     onOpen();
   };
 
-  // Filter data based on category
-  const filteredData =
-    category === "all"
-      ? data
-      : data.filter((item) => item.category === category);
+  const filteredData = useMemo(() => {
+  return category === "all"
+    ? data
+    : data.filter((item) => item.category === category);
+}, [data, category]);
 
-  // Pagination
-  const totalPages = Math.ceil(filteredData.length / ITEM_PER_PAGE);
-  const paginatedData = filteredData.slice(
+ const totalPages = Math.ceil(filteredData.length / ITEM_PER_PAGE);
+const paginatedData = useMemo(() => {
+  return filteredData.slice(
     currPage * ITEM_PER_PAGE,
     currPage * ITEM_PER_PAGE + ITEM_PER_PAGE
   );
+}, [filteredData, currPage]);
 
-  // Reset page on category change
+
   useEffect(() => {
     setCurrPage(0);
   }, [category]);
 
-  if (categories.length === 0) return null; // wait until categories are ready
+  if (categories.length === 0) return null;
 
   return (
     <>
@@ -91,7 +94,7 @@ export function Trending() {
       <Box bg="white" position="sticky" top="70px" zIndex="100" boxShadow="sm" p="3">
         <Tabs
           variant="unstyled"
-          index={tabIndex} // fully controlled
+          index={tabIndex} 
           onChange={(index) => {
             setCategory(categories[index]);
             setTabIndex(index);
@@ -174,11 +177,13 @@ export function Trending() {
           <Pagination currPage={currPage} totalPages={totalPages} setCurrPage={setCurrPage} />
         </>
       )}
-
-      {selectedProduct && (
+      <Suspense fallback={null}>{selectedProduct && (
         <ProductModal selectedProduct={selectedProduct} onClose={onClose} isOpen={isOpen} />
-      )}
+      )}</Suspense>
+      <br />
       <Footer/>
     </>
   );
 }
+
+export default Trending

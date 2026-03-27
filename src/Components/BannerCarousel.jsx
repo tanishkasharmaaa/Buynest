@@ -2,7 +2,7 @@ import { Box, Image } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-export function BannerCarousel({ images }) {
+function BannerCarousel({ images }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const navigate = useNavigate();
 
@@ -49,3 +49,5 @@ export function BannerCarousel({ images }) {
     </Box>
   );
 }
+
+export default BannerCarousel

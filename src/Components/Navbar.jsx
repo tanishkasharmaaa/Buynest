@@ -21,7 +21,7 @@ import { HamburgerIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
 import { AuthModal } from "../Components/AuthModal";
 
-export function Navbar() {
+function Navbar() {
   const { isLoggedIn, logout } = useContext(AuthContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { isOpen: isAuthOpen, onOpen: onAuthOpen, onClose: onAuthClose } =
@@ -158,7 +158,8 @@ export function Navbar() {
               Cancel
             </Button>
             <Button
-              colorScheme="blue"
+              bg={'blue'}
+             
               onClick={() => {
                 onClose();
                 isLoggedIn ? logout() : onAuthOpen();
@@ -175,3 +176,5 @@ export function Navbar() {
     </>
   );
 }
+
+export default Navbar

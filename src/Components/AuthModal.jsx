@@ -17,6 +17,7 @@ export function AuthModal({ isOpen, onClose }) {
   const { login, createUser } = useContext(AuthContext);
 
   const [isLogin, setIsLogin] = useState(true);
+  const [message, setMessage] = useState("");
 
   const [form, setForm] = useState({
     name: "",
@@ -24,12 +25,13 @@ export function AuthModal({ isOpen, onClose }) {
     password: "",
   });
 
-  // Reset form when modal closes
+ 
   useEffect(() => {
     if (!isOpen) {
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setForm({ name: "", email: "", password: "" });
       setIsLogin(true);
+      setMessage("");
     }
   }, [isOpen]);
 
@@ -38,26 +40,35 @@ export function AuthModal({ isOpen, onClose }) {
   };
 
   const handleSubmit = () => {
-    if (isLogin) {
-      login(form.email, form.password);
-    } else {
-      createUser(form.name, form.email, form.password);
+    
+    if (!form.email || !form.password || (!isLogin && !form.name)) {
+      setMessage("Please fill all fields");
+      return;
     }
 
-    onClose();
-  };
+    if (isLogin) {
+      
+      login(form.email, form.password);
+      onClose();
+    } else {
+      
+      createUser(form.name, form.email, form.password);
 
+      setIsLogin(true);
+      setMessage("Account created! Please login.");
+
+      
+      setForm((prev) => ({
+        ...prev,
+        password: "",
+      }));
+    }
+  };
 
   if (!isOpen) return null;
 
   return (
-    <Modal
-      isOpen={isOpen}
-      onClose={onClose}
-      isCentered
-      closeOnOverlayClick={true}
-      motionPreset="scale"
-    >
+    <Modal isOpen={isOpen} onClose={onClose} isCentered>
       <ModalOverlay />
 
       <ModalContent>
@@ -69,6 +80,18 @@ export function AuthModal({ isOpen, onClose }) {
 
         <ModalBody pb="6">
           <VStack spacing="4">
+            {/* Message */}
+            {message && (
+              <Text
+                color={message.includes("Account") ? "green.500" : "red.500"}
+                fontSize="sm"
+                textAlign="center"
+              >
+                {message}
+              </Text>
+            )}
+
+            
             {!isLogin && (
               <Input
                 placeholder="Name"
@@ -78,6 +101,7 @@ export function AuthModal({ isOpen, onClose }) {
               />
             )}
 
+            
             <Input
               placeholder="Email"
               name="email"
@@ -85,6 +109,7 @@ export function AuthModal({ isOpen, onClose }) {
               onChange={handleChange}
             />
 
+            
             <Input
               placeholder="Password"
               type="password"
@@ -93,11 +118,12 @@ export function AuthModal({ isOpen, onClose }) {
               onChange={handleChange}
             />
 
+            
             <Button
               w="100%"
               bg="blue"
               color="white"
-              _hover={{ bg: "blue.700" }}
+              _hover={{ bg: "blue.600" }}
               onClick={handleSubmit}
             >
               {isLogin ? "Login" : "Register"}
@@ -109,7 +135,10 @@ export function AuthModal({ isOpen, onClose }) {
                 : "Already have an account?"}{" "}
               <span
                 style={{ color: "blue", cursor: "pointer" }}
-                onClick={() => setIsLogin(!isLogin)}
+                onClick={() => {
+                  setIsLogin(!isLogin);
+                  setMessage("");
+                }}
               >
                 {isLogin ? "Register" : "Login"}
               </span>

@@ -2,7 +2,7 @@
 import { Box, Text, Stack, VStack, Image, Divider } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
-export function Footer() {
+function Footer() {
   return (
     <Box bg="gray.200" color="white" py={{ base: 10, md: 16 }} px={{ base: 4, md: 16 }}>
       {/* Logo */}
@@ -82,3 +82,5 @@ export function Footer() {
     </Box>
   );
 }
+
+export default Footer

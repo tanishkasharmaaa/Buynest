@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useMemo } from "react";
 import {
   Box,
   Flex,
@@ -10,17 +10,20 @@ import {
   Divider,
   useDisclosure,
 } from "@chakra-ui/react";
+import { lazy, Suspense } from "react";
 import { CartContext } from "../Context/CartContext";
-import { CheckoutModal } from "../Components/CheckoutModal";
-import { Footer } from "../Components/Footer";
 
-export function Cart() {
-  const { cart, removeFromCart, addToCart, clearCart } =
-    useContext(CartContext);
+const CheckoutModal = lazy(() => import("../Components/CheckoutModal"));
+const Footer = lazy(() => import("../Components/Footer"));
+
+function Cart() {
+  const { cart, removeFromCart, clearCart } = useContext(CartContext);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const totalPrice = cart.reduce((acc, item) => acc + item.price, 0);
+  const totalPrice = useMemo(() => {
+    return cart.reduce((acc, item) => acc + item.price, 0);
+  }, [cart]);
 
   return (
     <>
@@ -53,7 +56,7 @@ export function Cart() {
             gap={{ base: 6, md: 8 }}
             align="start"
           >
-            {/* 🛍 LEFT */}
+         
             <Box flex="2" w="100%">
               <Text fontSize="xl" fontWeight="bold" mb="4">
                 Shopping Cart
@@ -68,10 +71,7 @@ export function Cart() {
                     borderRadius="lg"
                     boxShadow="sm"
                   >
-                    <Flex
-                      direction={{ base: "column", sm: "row" }}
-                      gap="4"
-                    >
+                    <Flex direction={{ base: "column", sm: "row" }} gap="4">
                       <Image
                         src={item.thumbnail}
                         w={{ base: "100%", sm: "120px" }}
@@ -170,13 +170,20 @@ export function Cart() {
         )}
       </Box>
 
-      <CheckoutModal
-        isOpen={isOpen}
-        onClose={onClose}
-        total={totalPrice}
-        clearCart={clearCart}
-      />
-      <Footer/>
+      <Suspense fallback={null}>
+        <CheckoutModal
+          isOpen={isOpen}
+          onClose={onClose}
+          total={totalPrice}
+          clearCart={clearCart}
+        />
+      </Suspense>
+      <br />
+      <Suspense fallback={null}>
+        <Footer />
+      </Suspense>
     </>
   );
 }
+
+export default Cart

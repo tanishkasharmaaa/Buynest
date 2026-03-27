@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import {
   Box,
   Input,
@@ -7,56 +7,65 @@ import {
   Spinner,
   useDisclosure,
 } from "@chakra-ui/react";
-import { Navbar } from "../Components/Navbar";
+import { lazy, Suspense } from "react";
 import { ProductsCard } from "../Components/ProductsCard";
 import { getProducts } from "../services/api";
-import { ProductModal } from "../Components/ProductModal";
 import { ProductCardSkeleton } from "../Components/ProductCardSkeleton";
-import { Footer } from "../Components/Footer";
 
-export function Explore() {
+const ProductModal = lazy(() => import("../Components/ProductModal"));
+const Footer = lazy(() => import("../Components/Footer"));
+
+function Explore() {
   const [query, setQuery] = useState("");
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedProduct, setSelectedProduct] = useState(null);
 
-  // 🔍 Handle Search
   useEffect(() => {
-    if (!query.trim()) {
+    if (query.trim().length < 2) {
       setData([]);
       return;
     }
+
+    const controller = new AbortController();
 
     const fetchSearch = async () => {
       setLoading(true);
       try {
         const url = `https://dummyjson.com/products/search?q=${query}`;
-        const res = await getProducts(url);
+        const res = await getProducts(url, controller.signal);
 
         setData(res.resData.products);
-        console.log(res.resData.products);
       } catch (err) {
-        console.log(err);
+        if (err.name !== "AbortError") {
+          console.log(err);
+        }
       } finally {
         setLoading(false);
       }
     };
 
-    const delay = setTimeout(fetchSearch, 500); // debounce
+    const delay = setTimeout(fetchSearch, 500);
 
-    return () => clearTimeout(delay);
+    return () => {
+      clearTimeout(delay);
+      controller.abort(); 
+    };
   }, [query]);
 
-  const handleCardClick = (product) => {
-    setSelectedProduct(product);
-    onOpen();
-  };
+  const handleCardClick = useCallback(
+    (product) => {
+      setSelectedProduct(product);
+      onOpen();
+    },
+    [onOpen],
+  );
 
   return (
     <>
       <Box p={{ base: 4, md: 8 }}>
-        {/* 🔍 Search Bar */}
+       
         <Input
           placeholder="Search for products..."
           value={query}
@@ -70,7 +79,6 @@ export function Explore() {
           }}
         />
 
-        {/* ⏳ Loading */}
         {loading && (
           <Box
             display="grid"
@@ -83,7 +91,6 @@ export function Explore() {
           </Box>
         )}
 
-        {/* 🎬 Default GIF (before search) */}
         {!query && (
           <Box textAlign="center" mt="10">
             <Image
@@ -99,26 +106,25 @@ export function Explore() {
           </Box>
         )}
 
-        {/* ❌ No Results */}
         {query && !loading && data.length === 0 && (
           <Text mt="6" textAlign="center" color="gray.500">
             No results found 😔
           </Text>
         )}
 
-        {/* 🛍 Results */}
+       
         {!loading && data.length > 0 && (
           <Box
             mt="6"
             display="grid"
             gap="25px"
             gridTemplateColumns={{
-              base: "repeat(auto-fit, minmax(200px, 1fr))", // mobile
-              sm: "repeat(auto-fit, minmax(220px, 1fr))", // small screens
+              base: "repeat(auto-fit, minmax(200px, 1fr))",
+              sm: "repeat(auto-fit, minmax(220px, 1fr))",
               md:
                 data?.length <= 4
                   ? "repeat(5, 1fr)"
-                  : "repeat(auto-fit, minmax(250px, 1fr))", // tablets & larger
+                  : "repeat(auto-fit, minmax(250px, 1fr))",
             }}
           >
             {data?.map((item) => (
@@ -131,14 +137,21 @@ export function Explore() {
           </Box>
         )}
       </Box>
-      {selectedProduct && (
-        <ProductModal
-          selectedProduct={selectedProduct}
-          onClose={onClose}
-          isOpen={isOpen}
-        />
-      )}
-      <Footer/>
+      <Suspense fallback={null}>
+        {selectedProduct && (
+          <ProductModal
+            selectedProduct={selectedProduct}
+            onClose={onClose}
+            isOpen={isOpen}
+          />
+        )}
+      </Suspense>
+      <br />
+      <Suspense fallback={null}>
+        <Footer />
+      </Suspense>
     </>
   );
 }
+
+export default Explore
